@@ -4,6 +4,7 @@
 (add-vertex g 'd)
 ;; Returns: ((d a b c) ((a . b) (b . c)))
 
+; Works with numbers as well as letters!
 (define f (make-graph '(1 2 3) '((1 . 2) (2 . 3))))
 (add-vertex f '4)
 
