@@ -1,25 +1,32 @@
-(load "graph_datatype_computations.scm")
+(load "graph.scm")
 
-(define g (make-graph '(a b c) '((a . b) (b . c))))
-(add-vertex g 'd)
-;; Returns: ((d a b c) ((a . b) (b . c)))
+(define graph (make-graph '(a b c d) '((a b) (b c) (c d) (a c))))
+(display graph)
+(newline)
+; '((a b c d) ((a b) (b c) (c d) (a c)))
 
-; Works with numbers as well as letters!
-(define f (make-graph '(1 2 3) '((1 . 2) (2 . 3))))
-(add-vertex f '4)
+(graph-vertices graph)
+; (a b c d)
 
-(add-edge g '(a . d))
-;; Returns: ((a b c) ((a . b) (b . c) (a . d)))
+(graph-edges graph)
+; (((a b) (b c) (c d) (a c)))
 
-(vertex-in-graph? g 'b)
-;; Returns: #t
+(vertex-in-graph? graph 'a)
+;=> #t
 
-(edge-in-graph? g '(b . d))
-;; Returns: #f
+(vertex-in-graph? graph 'e)
+;=> #f
 
-(vertex-edges g 'b)
-;; Should return: ((a . b) (b . c))
+(add-vertex graph 'e)
+;=> '((a b c d e) ((a b) (b c) (c d) (a c)))
 
-(connected-vertices g 'b)
-;; Should return: (a c)
+(add-edge graph '(d e))
+;=> '((a b c d e) ((a b) (b c) (c d) (a c) (d e)))
+
+; This one is outputting wrong, need to fix this
+(edge-in-graph? graph '(a b))
+;=> #t
+
+(edge-in-graph? graph '(a d))
+;=> #f
 
