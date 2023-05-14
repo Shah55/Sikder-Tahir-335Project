@@ -1,4 +1,4 @@
-(load set.scm)
+(load "set.scm")
 
 (set-member? '(a b c) 'd)
 ; #f
