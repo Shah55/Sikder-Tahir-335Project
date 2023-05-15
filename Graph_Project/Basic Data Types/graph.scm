@@ -16,6 +16,7 @@
 ;; Define a graph as a pair of sets of vertices and edges
 (define (make-graph vertices edges)
   (list (make-set vertices) (make-set edges)))
+;; has to be a set already
 
 ;; Get all vertices in a graph
 (define (graph-vertices graph)
@@ -24,10 +25,11 @@
 ;; Get all edges in a graph
 (define (graph-edges graph)
   (cdr graph))
+;; caddr
 
 ;; Add a vertex to a graph
 (define (add-vertex graph vertex)
-  (list (set-adjoin (graph-vertices graph) (make-vertex vertex))
+  (list (set-adjoin (graph-vertices graph) (make-vertex vertex)) ;; switch calls
         (graph-edges graph)))
 
 ;; Add an edge to a graph
@@ -47,6 +49,8 @@
     (or (set-member? (graph-edges graph) edge)
         (set-member? (graph-edges graph) (reverse edge)))))
 
+
+;; add adjacency
 
 ; -------------------------------------------------------------------------------------------------------------
 

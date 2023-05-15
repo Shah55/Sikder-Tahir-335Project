@@ -42,3 +42,6 @@
   (cond ((null? set) '())
         ((eq? (car set) element) (cdr set))
         (else (cons (car set) (set-remove (cdr set) element)))))
+
+
+;; We need a second representation of sets
