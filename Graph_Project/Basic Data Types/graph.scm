@@ -5,7 +5,7 @@
 ;; lets first make a graph datatype, but acknowledge the fact that a graph G is a SET of vertices V and edges E. 
 ;; Thus G = (V, E)
 
-;; Define a vertex as a symbol
+;; Define a vertex
 (define (make-vertex name)
   name)
 

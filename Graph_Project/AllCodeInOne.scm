@@ -70,7 +70,70 @@
         (set-member? (graph-edges graph) (reverse edge)))))
 
 
-;; Sample Usage
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Stack Data Type:
+
+; When thinking of implementing some of the algorithms such as BFS and DFS, it may be helpful to 
+; implement a stack.
+
+; This is provided by the professor:
+
+(define (make-empty-stack)
+  (lambda (x)
+    'empty))
+
+
+;; m is either 'top or 'pop
+;; s is a stack
+(define (push x s)
+  (lambda (m)
+    (cond ((eq? m 'top) x)
+          ((eq? m 'pop) s))))
+
+;; s is a stack
+(define (top s)
+  (s 'top))
+
+;; s is a non-empty stack
+(define (pop s)
+  (s 'pop))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Queue Data Type:
+
+; When thinking of implementing some of the algorithms such as BFS and DFS, it may be helpful to 
+; implement a queue.
+
+(define (make-empty-queue)
+  '())
+
+(define (enqueue val lst)
+  (if (null? lst) (list val)
+      (cons (car lst) (enqueue val (cdr lst)))))
+
+(define (dequeue lst)
+  (cdr lst))
+
+(define (first lst)
+  (car lst))
+
+(define (empty? lst)
+  (null? lst))
+
+(define (size lst)
+  (define (helper lst acc)
+    (if (null? lst) acc
+        (helper (cdr lst) (+ acc 1))))
+  (helper lst 0))
+
+
+
+  ;; Sample Usage
 
 (set-member? '(a b c) 'd)
 ; #f
@@ -118,36 +181,6 @@
 (edge-in-graph? graph '(a d))
 ;=> #f
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; Stack Data Type:
-
-; When thinking of implementing some of the algorithms such as BFS and DFS, it may be helpful to 
-; implement a stack.
-
-; This is provided by the professor:
-
-(define (make-empty-stack)
-  (lambda (x)
-    'empty))
-
-
-;; m is either 'top or 'pop
-;; s is a stack
-(define (push x s)
-  (lambda (m)
-    (cond ((eq? m 'top) x)
-          ((eq? m 'pop) s))))
-
-;; s is a stack
-(define (top s)
-  (s 'top))
-
-;; s is a non-empty stack
-(define (pop s)
-  (s 'pop))
-
-
 ;; do you see how to use these?
 
 ;; first, set up some stacks 
@@ -164,34 +197,6 @@
 
 (list (top stack-3) (top stack-2) (top stack-1))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; Queue Data Type:
-
-; When thinking of implementing some of the algorithms such as BFS and DFS, it may be helpful to 
-; implement a queue.
-
-(define (make-empty-queue)
-  '())
-
-(define (enqueue val lst)
-  (if (null? lst) (list val)
-      (cons (car lst) (enqueue val (cdr lst)))))
-
-(define (dequeue lst)
-  (cdr lst))
-
-(define (first lst)
-  (car lst))
-
-(define (empty? lst)
-  (null? lst))
-
-(define (size lst)
-  (define (helper lst acc)
-    (if (null? lst) acc
-        (helper (cdr lst) (+ acc 1))))
-  (helper lst 0))
 
 (define q0 (make-empty-queue))
 (define q1 (enqueue 'a q0))
