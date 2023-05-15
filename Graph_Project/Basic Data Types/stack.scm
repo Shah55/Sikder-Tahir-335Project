@@ -41,3 +41,6 @@
 (define stack-3 (push 'c (pop stack-2)))
 
 (list (top stack-3) (top stack-2) (top stack-1))
+
+
+;; Add the rest of the stack implementations
