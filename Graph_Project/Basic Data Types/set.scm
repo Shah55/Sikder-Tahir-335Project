@@ -29,3 +29,16 @@
     (if (null? unique-lst)
         '()
         (cons (car unique-lst) (make-set (cdr unique-lst))))))
+
+
+;; AIZA'S CHANGES
+
+;; Returns empty list to represent empty set
+(define (make-empty-set)
+  '())
+
+;; Remove specific element from set
+(define (set-remove set element)
+  (cond ((null? set) '())
+        ((eq? (car set) element) (cdr set))
+        (else (cons (car set) (set-remove (cdr set) element)))))
