@@ -18,3 +18,9 @@
 
 (set-remove '(a b c d e) 'c)
 ;=> (a b d e)
+
+(set-union (make-set '(a b b c)) (make-set '(a e c)))
+; (a b c e)
+
+(set-intersection (make-set '(a b b c)) (make-set '(a e c)))
+; (a c)

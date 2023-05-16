@@ -30,6 +30,14 @@
         '()
         (cons (car unique-lst) (make-set (cdr unique-lst))))))
 
+;; Returns a new set that is the intersection of two sets.
+(define (set-intersection set1 set2)
+  (cond
+    ((null? set1) '())              
+    ((set-member? set2 (car set1)) 
+     (cons (car set1) (set-intersection (cdr set1) set2)))
+    (else (set-intersection (cdr set1) set2)))) 
+
 
 ;; AIZA'S CHANGES
 
@@ -42,6 +50,11 @@
   (cond ((null? set) '())
         ((eq? (car set) element) (cdr set))
         (else (cons (car set) (set-remove (cdr set) element)))))
+
+;; Returns a new set that is the union of two sets.
+
+(define (set-union set1 set2)
+  (remove-duplicates (append set1 set2)))
 
 
 ;; We need a second representation of sets

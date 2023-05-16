@@ -24,12 +24,11 @@
 
 ;; Get all edges in a graph
 (define (graph-edges graph)
-  (cdr graph))
-;; caddr
+  (cadr graph))
 
 ;; Add a vertex to a graph
 (define (add-vertex graph vertex)
-  (list (set-adjoin (graph-vertices graph) (make-vertex vertex)) ;; switch calls
+  (list (set-adjoin (graph-vertices graph) (make-vertex vertex))
         (graph-edges graph)))
 
 ;; Add an edge to a graph
@@ -48,9 +47,6 @@
         (edge (make-edge (car edge) (cdr edge))))
     (or (set-member? (graph-edges graph) edge)
         (set-member? (graph-edges graph) (reverse edge)))))
-
-
-;; add adjacency
 
 ; -------------------------------------------------------------------------------------------------------------
 
