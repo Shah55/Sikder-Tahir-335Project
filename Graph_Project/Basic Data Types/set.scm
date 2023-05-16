@@ -52,7 +52,6 @@
         (else (cons (car set) (set-remove (cdr set) element)))))
 
 ;; Returns a new set that is the union of two sets.
-
 (define (set-union set1 set2)
   (remove-duplicates (append set1 set2)))
 

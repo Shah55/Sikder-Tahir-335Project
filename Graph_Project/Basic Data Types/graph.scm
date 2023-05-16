@@ -16,7 +16,6 @@
 ;; Define a graph as a pair of sets of vertices and edges
 (define (make-graph vertices edges)
   (list (make-set vertices) (make-set edges)))
-;; has to be a set already
 
 ;; Get all vertices in a graph
 (define (graph-vertices graph)

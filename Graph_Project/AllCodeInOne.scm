@@ -91,8 +91,6 @@
     (or (set-member? (graph-edges graph) edge)
         (set-member? (graph-edges graph) (reverse edge)))))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Stack Data Type:
