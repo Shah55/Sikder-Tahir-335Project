@@ -38,9 +38,6 @@
      (cons (car set1) (set-intersection (cdr set1) set2)))
     (else (set-intersection (cdr set1) set2)))) 
 
-
-;; AIZA'S CHANGES
-
 ;; Returns empty list to represent empty set
 (define (make-empty-set)
   '())
