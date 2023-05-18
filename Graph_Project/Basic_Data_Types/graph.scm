@@ -1,4 +1,4 @@
-(load "set.scm")
+(load "./set.scm")
 
 ; Graph Data Type:
 
@@ -46,6 +46,24 @@
         (edge (make-edge (car edge) (cdr edge))))
     (or (set-member? (graph-edges graph) edge)
         (set-member? (graph-edges graph) (reverse edge)))))
+
+;; Get the neighbors of a vertex in a graph
+(define (get-neighbors graph vertex)
+  (let ((edges (graph-edges graph)))
+    (foldl (lambda (edge acc)
+             (if (eq? (car edge) vertex)
+                 (cons (cadr edge) acc)
+                 (if (eq? (cadr edge) vertex)
+                     (cons (car edge) acc)
+                     acc)))
+           '()
+           edges)))
+
+;; Foldl implementation
+(define (foldl func acc lst)
+  (if (null? lst)
+      acc
+      (foldl func (func (car lst) acc) (cdr lst))))
 
 ; -------------------------------------------------------------------------------------------------------------
 
