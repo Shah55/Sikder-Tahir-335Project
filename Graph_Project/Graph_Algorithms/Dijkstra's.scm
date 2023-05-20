@@ -1,6 +1,5 @@
 ;(load "../Basic_Data_Types/set.scm")
 ;(load "../Basic_Data_Types/queue.scm")
-;(load "../Basic_Data_Types/graph.scm")
 
 (define (dijkstra graph start end)
   
