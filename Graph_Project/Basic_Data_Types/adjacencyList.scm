@@ -1,97 +1,105 @@
-;; Graph structure
-(define (make-graph)
-  '())
+;; Lets start creating the adjacency list representation of graphs
+;; Similar to creating the regular graph representation, we have to make sure to keep the 
+;; property of having graphs being a SET of edges and vertices
 
-;; Add a node to the graph
-(define (add-node graph node)
-  (cons node graph))
+(load "./set.scm")
 
-;; Add an edge between two nodes in the graph
-(define (add-edge graph node1 node2)
-  (let ((adj-list (cdr node1)))
-    (set-cdr! node1 (cons node2 adj-list)))
-  graph)
+;; Define a vertex as an element in the set
+(define (make-vertex name)
+  name)
 
-;; Get the value of a node
-(define (node-value node)
-  (car node))
+;; Define an edge as a pair of vertices
+(define (make-edge v1 v2)
+  (cons (make-vertex v1) (make-vertex v2)))
 
-;; Get the adjacency list of a node
-(define (adjacency-list node)
-  (cdr node))
+;; Define a graph as a pair of adjacency lists for vertices and edges
+(define (make-graph vertex-list edge-list)
+  (cons (make-adjacency-lists vertex-list edge-list)
+        (make-set edge-list)))
 
-;; Get all nodes in the graph
-(define (graph-nodes graph)
-  graph)
+;; Define an adjacency list as a pair of a vertex and a list of adjacent vertices
+(define (make-adjacency-list vertex adjacent-vertices)
+  (cons vertex adjacent-vertices))
 
-;; Get all edges in the graph as a list of pairs
+;; Get all vertices in a graph
+(define (graph-vertices graph)
+  (map car (car graph)))
+
+;; Get all edges in a graph
 (define (graph-edges graph)
-  (letrec ((helper (lambda (nodes)
-                    (if (null? nodes)
-                        '()
-                        (append (map (lambda (node)
-                                       (cons (node-value (car nodes))
-                                             (node-value node)))
-                                     (adjacency-list (car nodes)))
-                                (helper (cdr nodes)))))))
-    (helper graph)))
+  (cdr graph))
 
-;; Check if a node is in the graph
-(define (node-in-graph? graph node)
-  (cond ((null? graph) #f)
-        ((eq? (car graph) node) #t)
-        (else (node-in-graph? (cdr graph) node))))
+;; Add a vertex to a graph
+(define (add-vertex graph vertex)
+  (cons (cons (make-vertex vertex) '())
+        (graph-edges graph)))
 
-;; Check if an edge is in the graph
-(define (edge-in-graph? graph node1 node2)
-  (let ((adj-list (adjacency-list node1)))
-    (cond ((null? adj-list) #f)
-          ((eq? (car adj-list) node2) #t)
-          (else (edge-in-graph? graph node1 (cdr adj-list))))))
+;; Add an edge to a graph
+(define (add-edge graph edge)
+  (let ((v1 (car edge))
+        (v2 (cdr edge)))
+    (let ((adjacency-lists (car graph)))
+      (let ((adjacency-list (assoc v1 adjacency-lists)))
+        (if adjacency-list
+            (cons (cons v1 (set-adjoin (cdr adjacency-list) v2))
+                  (graph-edges graph))
+            graph)))))
 
-;; Sample Usage
+;; Check if a vertex is in a graph
+(define (vertex-in-graph? graph vertex)
+  (set-member? (map car (car graph)) (make-vertex vertex)))
 
-;; Create a graph
-(define graph (make-graph))
+;; Check if an edge is in a graph
+(define (edge-in-graph? graph edge)
+  (set-member? (graph-edges graph) edge))
 
-;; Create nodes
-(define node1 (make-node 'A))
-(define node2 (make-node 'B))
-(define node3 (make-node 'C))
-(define node4 (make-node 'D))
+;; Get the adjacency list for a vertex in a graph
+(define (get-adjacency-list graph vertex)
+  (let ((adjacency-lists (car graph)))
+    (let ((adjacency-list (assoc (make-vertex vertex) adjacency-lists)))
+      (if adjacency-list
+          (cdr adjacency-list)
+          '()))))
 
-;; Add nodes to the graph
-(set! graph (add-node graph node1))
-(set! graph (add-node graph node2))
-(set! graph (add-node graph node3))
-(set! graph (add-node graph node4))
+;; Check if two vertices are adjacent in a graph
+(define (adjacent? graph v1 v2)
+  (let ((adjacency-list (get-adjacency-list graph v1)))
+    (set-member? adjacency-list (make-vertex v2))))
 
-;; Add edges between nodes
-(set! graph (add-edge graph node1 node2))
-(set! graph (add-edge graph node1 node3))
-(set! graph (add-edge graph node2 node3))
-(set! graph (add-edge graph node3 node4))
 
-;; Get all nodes in the graph
-(graph-nodes graph)
-;; Output: ((A) (B) (C) (D))
+;; Sample usage:
 
-;; Get all edges in the graph
-(graph-edges graph)
-;; Output: ((A . B) (A . C) (B . C) (C . D))
+;; Create a graph with vertices and edges
+(define my-graph (make-graph '(a b c d) '((a . b) (b . c) (c . d) (d . a))))
 
-;; Check if a node is in the graph
-(node-in-graph? graph node2)
+;; Check if 'a' is a vertex in the graph
+(vertex-in-graph? my-graph 'a)
 ;; Output: #t
 
-(node-in-graph? graph (make-node 'E))
+;; Check if 'x' is a vertex in the graph
+(vertex-in-graph? my-graph 'x)
 ;; Output: #f
 
-;; Check if an edge is in the graph
-(edge-in-graph? graph node1 node2)
+;; Check if the edge '(a . b)' is in the graph
+(edge-in-graph? my-graph '(a . b))
 ;; Output: #t
 
-(edge-in-graph? graph node2 node4)
+;; Check if the edge '(b . d)' is in the graph
+(edge-in-graph? my-graph '(b . d))
 ;; Output: #f
 
+;; Check if vertices 'a' and 'b' are adjacent in the graph
+(adjacent? my-graph 'a 'b)
+;; Output: #t
 
+;; Check if vertices 'c' and 'd' are adjacent in the graph
+(adjacent? my-graph 'c 'd)
+;; Output: #t
+
+;; Check if vertices 'a' and 'c' are adjacent in the graph
+(adjacent? my-graph 'a 'c)
+;; Output: #f
+
+;; Get the adjacency list for vertex 'a' in the graph
+(get-adjacency-list my-graph 'a)
+;; Output: (b)
