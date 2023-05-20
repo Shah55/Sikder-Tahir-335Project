@@ -53,4 +53,29 @@
   (remove-duplicates (append set1 set2)))
 
 
-;; We need a second representation of sets
+
+(set-member? '(a b c) 'd)
+; #f
+(set-member? '(a b c) 'c)
+; #t
+
+(set-adjoin '(1 2 4) 4)
+; (1 2 4)
+(set-adjoin '(1 2 4) 5)
+; (5 1 2 4)
+
+(make-set '(a b b c))
+; (a b c)
+
+(make-edge '(a b) '(c d))
+; ((a b) (c d))
+
+(set-remove '(a b c d e) 'c)
+;=> (a b d e)
+
+(set-union (make-set '(a b b c)) (make-set '(a e c)))
+; (a b c e)
+
+(set-intersection (make-set '(a b b c)) (make-set '(a e c)))
+; (a c)
+
