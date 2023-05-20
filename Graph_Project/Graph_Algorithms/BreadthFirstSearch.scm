@@ -1,6 +1,6 @@
-(load "..Basic-Data-Types/set.scm")
-(load "..Basic-Data-Types/graph.scm")
-(load "..Basic-Data-Types/queue.scm")
+(load "../Basic-Data-Types/set.scm")
+(load "../Basic-Data-Types/graph.scm")
+(load "../Basic-Data-Types/queue.scm")
 
 ;; Working on implementing the bfs but the abstraction is making this exceptionally difficult. I hope to
 ;; get through it though

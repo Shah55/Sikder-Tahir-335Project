@@ -1,4 +1,4 @@
-(load "graph.scm")
+(load "../Basic-Data-Types/graph.scm")
 
 (define graph (make-graph '(a b c d) '((a b) (b c) (c d) (a c))))
 (display graph)

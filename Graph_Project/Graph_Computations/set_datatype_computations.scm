@@ -1,4 +1,4 @@
-(load "set.scm")
+(load "../Basic-Data-Types/set.scm")
 
 (set-member? '(a b c) 'd)
 ; #f

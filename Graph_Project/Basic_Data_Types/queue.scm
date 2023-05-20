@@ -42,4 +42,3 @@
 ; 3
 
 
-;; We need a queue implented in terms of 2 stacks here
