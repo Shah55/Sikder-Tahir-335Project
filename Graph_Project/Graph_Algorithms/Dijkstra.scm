@@ -1,108 +1,43 @@
-; Code doesn't work properly, need to fix 
+;(load "../Basic_Data_Types/set.scm")
+;(load "../Basic_Data_Types/queue.scm")
+;(load "../Basic_Data_Types/graph.scm")
 
-(load "../Basic-Data-Types/set.scm")
-(load "../Basic-Data-Types/queue.scm")
-
-(define (dijkstra graph start)
-  ;; Create a set to store visited vertices
-  (define visited (make-empty-set))
+(define (dijkstra graph start end)
   
-  ;; Create a queue to store vertices to visit
-  (define queue (make-empty-queue))
-  
-  ;; Create a list to store distances from the start vertex
-  (define distances (list (cons start 0)))
-  
-  ;; Helper function to get the distance for a vertex
-  (define (get-distance vertex)
-    (cdr (assoc vertex distances)))
-  
-  ;; Helper function to update the distance for a vertex
-  (define (update-distance vertex distance)
-    (set! distances (cons (cons vertex distance) (set-remove distances (assoc vertex distances)))))
-  
-  ;; Helper function to get the unvisited neighbor with the minimum distance
-  (define (get-min-distance-neighbor neighbors)
-    (if (empty? (cdr neighbors))
-        (car neighbors)
-        (let* ((min-rest (get-min-distance-neighbor (cdr neighbors)))
-               (min-neighbor (car min-rest))
-               (min-distance (get-distance min-neighbor))
-               (current-neighbor (car neighbors))
-               (current-distance (get-distance current-neighbor)))
-          (if (< current-distance min-distance)
-              (cons current-neighbor current-distance)
-              min-rest))))
-  
-  ;; Add the start vertex to the queue
-  (enqueue start queue)
-  
-  ;; Recursive helper function to visit vertices
-  (define (visit-vertices)
-    (if (empty-queue? queue)
-        ;; No more vertices to visit, return the distances
-        distances
-        (let* ((current-vertex (dequeue queue))
-               (current-distance (get-distance current-vertex)))
-          (if (set-member? visited current-vertex)
-              ;; Vertex already visited, continue to the next iteration
-              (visit-vertices)
-              (begin
-                ;; Mark the current vertex as visited
-                (set! visited (set-adjoin visited current-vertex))
-                
-                ;; Get the neighbors of the current vertex
-                (let ((neighbors (get-neighbors graph current-vertex)))
-                  ;; Update the distances for the neighbors
-                  (let update-distances ((neighbors neighbors))
-                    (if (not (null? neighbors))
-                        (let* ((neighbor-vertex (car (car neighbors)))
-                               (neighbor-distance (+ current-distance (edge-weight graph current-vertex neighbor-vertex))))
-                          (if (or (not (set-member? visited neighbor-vertex))
-                                  (< neighbor-distance (get-distance neighbor-vertex)))
-                              (begin
-                                (update-distance neighbor-vertex neighbor-distance)
-                                (update-distances (cdr neighbors))))
-                              (update-distances neighbors)))))
-                  ;; Enqueue the unvisited neighbors
-                  (let enqueue-neighbor ((neighbors neighbors))
-                    (if (not (null? neighbors))
-                        (let ((neighbor-vertex (car (car neighbors))))
-                          (if (not (set-member? visited neighbor-vertex))
-                              (begin
-                                (enqueue neighbor-vertex queue)
-                                (enqueue-neighbor (cdr neighbors)))))))
-                  ;; Continue to the next iteration
-                  (visit-vertices)))))))
+  ;; takes a node and returns its weight
+  (define (node-weight node)
+    (cdr node))
 
-;; Example usage
+  ;; takes a vertex and weight and constructs node
+  (define (node vertex weight)
+    (cons vertex weight))
 
-;; Define the graph
-(define vertices '(A B C D E))
-(define edges '((A B 1) (A C 4) (B D 6) (C D 3) (D E 2)))
+  ;; creates a node
+  (define (make-node vertex weight)
+    (cons vertex weight))
 
-;; Create a function to retrieve neighbors of a vertex
-(define (get-neighbors graph vertex)
-  (filter (lambda (edge)
-            (let ((v1 (car edge))
-                  (v2 (cadr edge))
-                  (weight (caddr edge)))
-              (if (eq? vertex v1)
-                  v2
-                  (if (eq? vertex v2)
-                      v1
-                      #f))))
-          edges))
+  ;; returns a list representing the distances to the neighbors of the node  
+  (define (update-distances-from-node current distances)
+    (let ((current-distance (node-weight (assoc (node current) distances))))
+      (map (lambda (edge)
+             (let* ((neighbor-vertex (car edge))
+                    (neighbor-distance (cdr (assoc neighbor-vertex distances)))
+                    (new-distance (+ current-distance (cadr edge))))
+               (if (or (not neighbor-distance) (< new-distance neighbor-distance))
+                   (make-node neighbor-vertex new-distance)
+                   (make-node neighbor-vertex neighbor-distance))))
+           (assoc (node current) graph))))
 
-;; Create a function to retrieve the weight of an edge
-(define (edge-weight graph v1 v2)
-  (let ((edge (assoc v1 (assoc v2 graph))))
-    (if edge
-        (caddr edge)
-        #f)))
 
-;; Create the graph
-(define graph (list->graph vertices edges))
-
-;; Perform Dijkstra's algorithm
-(dijkstra graph 'A)
+  (let iter ((queue (list (make-node start 0)))
+             (visited '())
+             (distances (list (make-node start 0))))
+    (if (null? queue) #f
+        (let* ((queue (sort (lambda (x y) (< (node-weight x) (node-weight y))) queue))
+               (current (car queue))
+               (queue (cdr queue)))
+          (cond ((equal? (node current) end) (node-weight current))
+                ((member (node current) visited) (iter queue visited distances))
+                (else (iter (append queue (update-distances-from-node current distances))
+                            (cons (node current) visited)
+                            (update-distances-from-node current distances))))))))
