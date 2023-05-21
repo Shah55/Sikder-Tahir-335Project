@@ -67,7 +67,7 @@
 (make-set '(a b b c))
 ; (a b c)
 
-(make-edge '(a b) '(c d))
+; (make-edge '(a b) '(c d))
 ; ((a b) (c d))
 
 (set-remove '(a b c d e) 'c)

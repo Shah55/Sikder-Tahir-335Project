@@ -1,4 +1,4 @@
-(load "../Basic-Data-Types/set.scm")
+(load "../Basic_Data_Types/set.scm")
 
 ; Graph Data Type:
 
@@ -95,6 +95,9 @@
 
 (edge-in-graph? graph '(a d))
 ;=> #f
+
+(make-edge '(a b) '(c d))
+; ((a b) (c d))
 
 ; -------------------------------------------------------------------------------------------------------------
 
