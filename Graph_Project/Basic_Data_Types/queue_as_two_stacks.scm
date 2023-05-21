@@ -1,6 +1,6 @@
 ;; We need a queue implented in terms of 2 stacks here
 
-(load "../Basic-Data-Types/stack.scm")
+(load "../Basic_Data_Types/stack.scm")
 
 ;; This implementation is based on the Professors code for stacks
 
