@@ -2,7 +2,7 @@
 ;; Similar to creating the regular graph representation, we have to make sure to keep the 
 ;; property of having graphs being a SET of edges and vertices
 
-(load "../Basic-Data-Types/set.scm")
+(load "../Basic_Data_Types/set.scm")
 
 ;; Define a vertex as an element in the set
 (define (make-vertex name)
