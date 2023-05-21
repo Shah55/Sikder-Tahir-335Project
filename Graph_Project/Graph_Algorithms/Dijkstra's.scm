@@ -42,9 +42,8 @@
                             (cons (node current) visited)
                             (update-distances-from-node current distances))))))))
 
-;; Example:
 
-;(define graph (make-graph '(A B C D E)
+; (define graph (make-graph '(A B C D E)
 ;                          '((A B) (A C) (B D) (B E) (C E) (D E))))
 
-;(dijkstra graph 'A 'E) ; 6
+; (dijkstra graph 'A 'E) ; 6
