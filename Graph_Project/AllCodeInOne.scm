@@ -424,7 +424,6 @@
 ; Dijkstra's (Shortest Path):
 
 (define (dijkstra graph start end)
-  
   ;; takes a node and returns its weight
   (define (node-weight node)
     (cdr node))
@@ -449,25 +448,27 @@
                    (make-node neighbor-vertex neighbor-distance))))
            (assoc (node current) graph))))
 
-  ;; insertion sort implementation
-  (define (insertion-sort lst)
-    (define (insert x sorted)
-      (cond ((null? sorted) (list x))
-            ((<= x (car sorted)) (cons x sorted))
-            (else (cons (car sorted) (insert x (cdr sorted))))))
-    
-    (define (sort-helper unsorted sorted)
+
+  ;; Insertion sort function for the queue
+  (define (insertion-sort queue)
+    (define (insert node sorted-list)
+      (if (null? sorted-list)
+          (list node)
+          (if (< (node-weight node) (node-weight (car sorted-list)))
+              (cons node sorted-list)
+              (cons (car sorted-list) (insert node (cdr sorted-list))))))
+    (define (sort-list unsorted sorted)
       (if (null? unsorted)
           sorted
-          (sort-helper (cdr unsorted) (insert (car unsorted) sorted))))
-    
-    (sort-helper lst '()))
+          (sort-list (cdr unsorted) (insert (car unsorted) sorted))))
+    (sort-list (cdr queue) (list (car queue))))
+
 
   (let iter ((queue (list (make-node start 0)))
              (visited '())
              (distances (list (make-node start 0))))
     (if (null? queue) #f
-        (let* ((queue (sort (lambda (x y) (< (node-weight x) (node-weight y))) queue))
+        (let* ((queue (insertion-sort queue))
                (current (car queue))
                (queue (cdr queue)))
           (cond ((equal? (node current) end) (node-weight current))
