@@ -1,6 +1,6 @@
-(load "../Basic-Data-Types/set.scm")
-(load "../Basic-Data-Types/graph.scm")
-(load "../Basic-Data-Types/queue.scm")
+(load "../Basic_Data_Types/set.scm")
+(load "../Basic_Data_Types/graph.scm")
+(load "../Basic_Data_Types/queue.scm")
 
 (define (bfs start-node graph)
   (define (bfs-helper visited queue)
