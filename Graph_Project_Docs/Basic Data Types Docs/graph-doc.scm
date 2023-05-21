@@ -10,47 +10,48 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Pre: The graph must be a valid graph.
-; Post: 
+; Post: Returns a list of all vertices present in the graph.
 (graph-vertices graph)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
+; Pre: The graph must be a valid graph.
+; Post: Returns a list of all edges present in the graph.
 (graph-edges graph)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
+; Pre: The graph must be a valid graph.
+; The vertex 'a' must be provided.
+
+; Post: Returns #t if the vertex is present in the graph, #f otherwise.
 (vertex-in-graph? graph 'a)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
-(vertex-in-graph? graph 'e)
+; Pre: The graph must be a valid graph.
+; The vertex 'e' must be provided.
+; The vertex 'e' must not already exist in the graph.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-; Pre:
-; Post:
+; Post: Returns an updated graph with the vertex 'e' added.
 (add-vertex graph 'e)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
+; Pre: The graph must be a valid graph.
+; The edge '(d e) must be provided.
+; Both vertices 'd' and 'e' must already exist in the graph.
+
+; Post: Returns an updated graph with the edge '(d e) added.
 (add-edge graph '(d e))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
+; Pre: The graph must be a valid graph.
+; The edge '(a b) must be provided.
+
+; Post: Returns #t if the edge is present in the graph, #f otherwise.
 (edge-in-graph? graph '(a b))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Pre:
-; Post:
-(edge-in-graph? graph '(a d))
+
