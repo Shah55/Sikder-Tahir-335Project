@@ -449,6 +449,19 @@
                    (make-node neighbor-vertex neighbor-distance))))
            (assoc (node current) graph))))
 
+  ;; insertion sort implementation
+  (define (insertion-sort lst)
+    (define (insert x sorted)
+      (cond ((null? sorted) (list x))
+            ((<= x (car sorted)) (cons x sorted))
+            (else (cons (car sorted) (insert x (cdr sorted))))))
+    
+    (define (sort-helper unsorted sorted)
+      (if (null? unsorted)
+          sorted
+          (sort-helper (cdr unsorted) (insert (car unsorted) sorted))))
+    
+    (sort-helper lst '()))
 
   (let iter ((queue (list (make-node start 0)))
              (visited '())
@@ -464,10 +477,10 @@
                             (update-distances-from-node current distances))))))))
 
 
-(define graph (make-graph '(A B C D E)
-                          '((A B) (A C) (B D) (B E) (C E) (D E))))
+; (define graph (make-graph '(A B C D E)
+;                          '((A B) (A C) (B D) (B E) (C E) (D E))))
 
-(dijkstra graph 'A 'E) ; expected output: 6
+; (dijkstra graph 'A 'E)
 
 
 
@@ -515,15 +528,4 @@
 
 (display "-------------------")
 (newline)
-
-
-
-
-
-
-
-
-
-
-
 
