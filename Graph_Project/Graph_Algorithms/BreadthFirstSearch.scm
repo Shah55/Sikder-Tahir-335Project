@@ -16,7 +16,7 @@
                                                         (not (set-member? visited neighbor)))
                                                       (map make-vertex neighbors))))))))))
 
-  (bfs-helper (set-adjoin (make-empty-set) start-node) (make-queue start-node)))
+  (bfs-helper (set-adjoin (make-empty-set) start-node) (make-queue-2 start-node)))
 
 (define graph (make-graph '(A B C D E)
                           '((A B) (A C) (B D) (B E) (C E) (D E))))

@@ -41,4 +41,5 @@
 (size q3)
 ; 3
 
-
+(define (make-queue-2 start-node)
+  (list start-node))

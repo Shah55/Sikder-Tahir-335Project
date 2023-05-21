@@ -162,7 +162,8 @@
         (helper (cdr lst) (+ acc 1))))
   (helper lst 0))
 
-
+(define (make-queue-2 start-node)
+  (list start-node))
 
   ;; Sample Usage
 
@@ -182,9 +183,6 @@
 (set-union (make-set '(a b b c)) (make-set '(a e c)))
 
 (set-intersection (make-set '(a b b c)) (make-set '(a e c)))
-
-(make-edge '(a b) '(c d))
-; ((a b) (c d))
 
 (define graph (make-graph '(a b c d) '((a b) (b c) (c d) (a c))))
 (display graph)
@@ -380,7 +378,7 @@
                                                         (not (set-member? visited neighbor)))
                                                       (map make-vertex neighbors))))))))))
 
-  (bfs-helper (set-adjoin (make-empty-set) start-node) (make-queue start-node)))
+  (bfs-helper (set-adjoin (make-empty-set) start-node) (make-queue-2 start-node)))
 
 (define graph (make-graph '(A B C D E)
                           '((A B) (A C) (B D) (B E) (C E) (D E))))
