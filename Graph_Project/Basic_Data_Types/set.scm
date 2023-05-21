@@ -1,3 +1,5 @@
+(load "../Basic_Data_Types/graph.scm")
+
 ; Set Data Type:
 
 ;; Add an element to a set
