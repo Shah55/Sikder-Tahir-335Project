@@ -96,6 +96,9 @@
 (edge-in-graph? graph '(a d))
 ;=> #f
 
+(make-edge '(a b) '(c d))
+; ((a b) (c d))
+
 ; -------------------------------------------------------------------------------------------------------------
 
 ;; We have this representation but Professor Troeger mentioned that in actuality, graphs are defined as a SET of 
