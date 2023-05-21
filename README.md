@@ -7,7 +7,7 @@
 
 Our code is divided into the following folders, but we also have our code in AllCodeInOne.scm. 
 
-- Basic_Data_Types
+- Basic_Data_Types:
   - adjacencyList.scm
   - adjacencyMatrix.scm
   - graph.scm
@@ -15,23 +15,23 @@ Our code is divided into the following folders, but we also have our code in All
   - set.scm
   - stack.scm
 
-- Graph_Algorithms
+- Graph_Algorithms:
   - BreadthFirstSearch.scm
   - DepthFirstSearch.scm
   - Dijkstra's.scm
 
-- Graph_Computations
+- Graph_Computations:
   - bfs.scm
   - dfs.scm
   - dijkstra.scm
 
-- Basic Data Types Docs
+- Basic Data Types Docs:
   - adj-list-doc.scm
   - graph-doc.scm
   - queue-doc.scm
   - set-doc.scm
  
-- Graph Algorithms Docs
+- Graph Algorithms Docs:
   - bfs-doc.scm
   - dfs-doc.scm
   - dijkstra-doc.scm
