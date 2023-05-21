@@ -1,4 +1,4 @@
-(load "../Basic-Data-Types/set.scm")
+(load "../Basic_Data_Types/set.scm")
 
 ; Graph Data Type:
 
